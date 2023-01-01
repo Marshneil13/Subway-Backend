@@ -1,16 +1,18 @@
 const mongoose = require("mongoose");
-var mongoURL =
-  "mongodb+srv://marshneil_13:THEgolferno1**@subwaycluster.ikdbrfd.mongodb.net/sandy-subway";
+var mongoURI = process.env.MONGO_URI;
 
-mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true });
-// mongoose.set("strictQuery", true);
-var db = mongoose.connection;
-db.on("connected", () => {
-  console.log(`MongoDB Connection Successful`);
-});
+mongoose.set("strictQuery", false);
 
-db.on("error", () => {
-  console.log(`MongoDB Connection Failed`);
-});
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log(`MongoDB Connection Successful`);
+  })
+  .catch((err) => {
+    console.log(`MongoDB Connection Failed`);
+  });
 
 module.exports = mongoose;
