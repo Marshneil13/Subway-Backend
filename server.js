@@ -22,3 +22,6 @@ app.get("/getsubways", (req, res) => {
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => `Server is running on port ${port}`);
+
+//Get data from te backend through redux and redux thunk
+// Redux thunk is the middleware used to perform the asynchronous operations i.e. API operations
