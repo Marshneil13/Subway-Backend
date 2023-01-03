@@ -3,21 +3,13 @@ const express = require("express");
 const db = require("./db.js");
 const app = express();
 const Subway = require("./models/subwayModel");
+const subwaysRoute = require("./routes/subwaysRoute");
 
 app.use(express.json());
 
+app.use("/api/subways/", subwaysRoute);
 app.get("/", (req, res) => {
   res.send("Server is Working");
-});
-
-app.get("/getsubways", (req, res) => {
-  Subway.find({}, (err, docs) => {
-    if (err) {
-      console.log("ERROR", err);
-    } else {
-      res.send(docs);
-    }
-  });
 });
 
 const port = process.env.PORT || 5000;
