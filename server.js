@@ -4,10 +4,12 @@ const db = require("./db.js");
 const app = express();
 const Subway = require("./models/subwayModel");
 const subwaysRoute = require("./routes/subwaysRoute");
+const userRoute = require("./routes/userRoute");
 
 app.use(express.json());
 
 app.use("/api/subways/", subwaysRoute);
+app.use("/api/users/", userRoute);
 app.get("/", (req, res) => {
   res.send("Server is Working");
 });
