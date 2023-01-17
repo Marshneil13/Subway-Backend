@@ -15,13 +15,21 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// Whenever a login is successful, we have to send the user data from the backend to the frontend as it has to be stored in the local storage of the console
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.find({ email, password });
     if (user.length > 0) {
-      res.send("User logged in successfully");
+      const currentUSer = {
+        name: user[0].name,
+        email: user[0].email,
+        isAdmin: user[0].isAdmin,
+        _id: user[0]._id,
+      };
+      res.send(currentUSer);
     } else {
       return res.status(400).json({ message: "User login failed" });
     }
