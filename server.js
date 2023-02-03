@@ -8,6 +8,10 @@ const userRoute = require("./routes/userRoute");
 
 app.use(express.json());
 
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/../", "build", "index.html"));
+// });
+
 app.use("/api/subways/", subwaysRoute);
 app.use("/api/users/", userRoute);
 app.get("/", (req, res) => {
