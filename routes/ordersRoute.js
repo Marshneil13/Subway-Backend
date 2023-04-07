@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 const Stripe = require("stripe")(secretKey);
 console.log("STRIPE", Stripe);
+const Order = require("../models/orderModel");
 const router = express.Router();
 const { v4: uuid4 } = require("uuid");
 
@@ -27,14 +28,39 @@ router.post("/placeorder", async (req, res) => {
       }
     );
     if (payment) {
-      console.log("Payment Done! Order Placed Successfully");
+      const neworder = new Order({
+        name: currentUser.name,
+        email: currentUser.email,
+        userId: currentUser._id,
+        orderItems: cartItems,
+        orderAmount: subtotal,
+        shippingAddress: {
+          street: token.card.address_line1,
+          city: token.card.address_city,
+          country: token.card.address_country,
+          pincode: token.card.address_zip,
+        },
+        transactionId: payment.source.id,
+      });
+      neworder.save();
+      res.send("Order Placed Successfully!");
     } else {
-      console.log("Payment Failed");
+      res.send("Payment Failed");
     }
   } catch (error) {
     return res
       .status(400)
       .json({ message: "Something went wrong", error: error });
+  }
+});
+
+router.post("/getuserorders", async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const orders = await Order.find({ userId: userId });
+    res.send(orders);
+  } catch (error) {
+    return res.status(400).json({ message: "Something went wrong" });
   }
 });
 
