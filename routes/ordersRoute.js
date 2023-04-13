@@ -57,7 +57,7 @@ router.post("/placeorder", async (req, res) => {
 router.post("/getuserorders", async (req, res) => {
   const { userId } = req.body;
   try {
-    const orders = await Order.find({ userId: userId });
+    const orders = await Order.find({ userId: userId }).sort({ _id: -1 }); //by doing so the items will get sorted date wise instead of id
     res.send(orders);
   } catch (error) {
     return res.status(400).json({ message: "Something went wrong" });
