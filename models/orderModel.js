@@ -6,10 +6,10 @@ const orderSchema = mongoose.Schema(
     email: { type: String, require },
     userId: { type: String, require },
     orderItems: [],
-    shippingAddress: { type: Object },
     orderAmount: { type: Number, require },
+    shippingAddress: { type: Object },
     isDelivered: { type: Boolean, require, default: false },
-    transactionId: { type: String, require },
+    paymentStatus: { type: String, require },
   },
   {
     timestamps: true,
