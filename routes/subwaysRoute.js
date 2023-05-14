@@ -60,4 +60,14 @@ router.post("/editsubway", async (req, res) => {
   }
 });
 
+router.post("/deletesubway", async (req, res) => {
+  const subwayId = req.body.subwayId;
+  try {
+    await Subway.findOneAndDelete({ _id: subwayId });
+    res.send("Subway deleted successfully");
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
 module.exports = router;
