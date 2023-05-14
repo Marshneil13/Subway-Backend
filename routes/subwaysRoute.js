@@ -13,7 +13,7 @@ router.get("/getallsubways", async (req, res) => {
   }
 });
 
-router.post("/addsubways", async (req, res) => {
+router.post("/addsubway", async (req, res) => {
   const subway = req.body.subway;
 
   try {
@@ -28,6 +28,33 @@ router.post("/addsubways", async (req, res) => {
     });
     await newSubway.save();
     res.send("New Sub added Successfully");
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
+router.post("/getsubwaybyid", async (req, res) => {
+  const subwayId = req.body.subwayId;
+  try {
+    const subway = await Subway.findOne({ _id: subwayId });
+    res.send(subway);
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
+router.post("/editsubway", async (req, res) => {
+  const editedSubway = req.body.editedSubway;
+  try {
+    const subway = await Subway.findOne({ _id: editedSubway._id });
+    subway.name = editedSubway.name;
+    subway.description = editedSubway.description;
+    subway.image = editedSubway.image;
+    subway.category = editedSubway.category;
+    subway.prices = [editedSubway.prices];
+
+    await subway.save();
+    res.send("Subway details updated successfully");
   } catch (error) {
     return res.status(400).json({ message: error });
   }
