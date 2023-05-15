@@ -45,4 +45,26 @@ router.post("/getuserorders", async (req, res) => {
   }
 });
 
+router.get("/getallorders", async (req, res) => {
+  try {
+    const orders = await Order.find({});
+    res.send(orders);
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
+router.post("/deliverorder", async (req, res) => {
+  const orderId = req.body.orderId;
+  try {
+    const order = await Order.findOne({ _id: orderId });
+    order.isDelivered = true;
+    order.paymentStatus = "received";
+    await order.save();
+    res.send("Order Delivered Successfully");
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
 module.exports = router;
