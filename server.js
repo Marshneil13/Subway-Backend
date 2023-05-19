@@ -6,6 +6,7 @@ const Subway = require("./models/subwayModel");
 const subwaysRoute = require("./routes/subwaysRoute");
 const userRoute = require("./routes/userRoute");
 const ordersRoute = require("./routes/ordersRoute");
+const cartRoute = require("./routes/cartRoute.js");
 
 app.use(express.json());
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/subways/", subwaysRoute);
 app.use("/api/users/", userRoute);
 app.use("/api/orders/", ordersRoute);
+app.use("/api/cart/", cartRoute);
 app.get("/", (req, res) => {
   res.send("Server is Working");
 });
