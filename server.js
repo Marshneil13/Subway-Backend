@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   res.send("Server is Working");
 });
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => `Server is running on port ${port}`);
 
 //Get data from te backend through redux and redux thunk
