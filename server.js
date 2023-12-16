@@ -7,8 +7,11 @@ const subwaysRoute = require("./routes/subwaysRoute");
 const userRoute = require("./routes/userRoute");
 const ordersRoute = require("./routes/ordersRoute");
 const cartRoute = require("./routes/cartRoute.js");
+const cors = require("cors");
 
 app.use(express.json());
+
+app.use(cors());
 
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "/../", "build", "index.html"));
